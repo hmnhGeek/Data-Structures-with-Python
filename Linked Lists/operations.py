@@ -63,6 +63,9 @@ class LinkedList:
             # in case you want to delete 0th index, just modify the head.
             self.head = temp.next
 
+        # free up temp
+        temp = None
+
     def access(self, index=0):
         # setup the head.
         temp = self.head
