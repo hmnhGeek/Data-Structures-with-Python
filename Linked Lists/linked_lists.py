@@ -1,4 +1,4 @@
-# linked list implementation.
+# linked list implementation. # ref.: geeksforgeeks
 
 class Node:
     # a node contains data and a pointer to next node.
