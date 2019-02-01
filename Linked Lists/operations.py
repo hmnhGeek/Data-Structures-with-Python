@@ -214,6 +214,49 @@ class LinkedList:
                     prevHead.next = temp.next
                     temp.next = next_ofprevHead
                     self.head = temp
+
+    def pairwiseSwap(self):
+        # store the head.
+        temp = self.head
+
+        # get the length of the linked list.
+        linear_wt = self.length()
+
+        # find the number of pairs
+        pairs = int(linear_wt/2)
+        upcounter = 0
+        prev = None
+        print("Pairs = {}".format(pairs))
+
+        while upcounter <= pairs:
+            first_node = temp
+            temp = temp.next
+            second_node = temp
+
+            # save the second_node pointer
+            secPointer = second_node.next
+            # link first node with secPointer
+            first_node.next = secPointer
+            # link second node to first node
+            second_node.next = first_node
+
+            # change the temp to the first node of next pair.
+            temp = first_node.next
+
+            # if the swap is hapenning on first two nodes, then assign the second node (index = 1) as head node.
+            if upcounter == 0:
+                self.head = second_node
+            # else, connect the previous node of current first node to the current second node.
+            else:
+                prev.next = second_node
+
+            # update upcounter by +2, so that we move in pairs.
+            upcounter += 2
+            # don't forget to assign a previous node. Now the first node has actually become the second node.
+            # prev is needed as 1 for example in this case, 2 ----> 1 ----> 3 <---- 4. So that this prev (1), can be linked to 4 and thus making this,
+            # 2 ----> 1 ----> 4 ----> 3.
+            prev = first_node
+        
         
 if __name__ == '__main__':
     # create a linked list l.
@@ -267,5 +310,11 @@ if __name__ == '__main__':
     l.printList()
     print("After swapping...")
     l.swap(2, 0)
+    l.printList()
+
+    print("Before pairwise swap...")
+    l.printList()
+    print("After pairwise swap...")
+    l.pairwiseSwap()
     l.printList()
     
