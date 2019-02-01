@@ -138,6 +138,58 @@ class LinkedList:
         for i in range(-2, -len(stack)-1, -1):
             temp.next = stack[i] # this is like appending elements to new linked list.
             temp = stack[i] # as soon as this element is appended the last element is itself this element.
+    
+
+    def swap(self, index1, index2):
+
+        if index1 != index2: 
+            if index1 != 0 and index2 != 0: # this logic does not alter head.
+                temp = self.head
+
+                # find index 1..
+                prev1 = None
+                counter = 0
+                while counter != index1 and temp.next != None:
+                    counter += 1
+                    prev1 = temp
+                    temp = temp.next
+
+                first_elem = temp # we have now found the first node.
+
+                # finding index 2 now.
+                prev2 = None
+                temp = self.head
+                counter = 0
+
+                while counter != index2 and temp.next != None:
+                    counter += 1
+                    prev2 = temp
+                    temp = temp.next
+
+                second_elem = temp # this is the second node.
+                next_of_sec_elem = second_elem.next
+
+                prev1.next = second_elem
+                second_elem.next = first_elem.next
+                prev2.next = first_elem
+                first_elem.next = next_of_sec_elem
+
+            else:
+                if index1 == 0:
+                    temp = self.head
+                    counter = 0
+                    prev2 = None
+                    while counter != index2 and temp.next != None:
+                        counter += 1
+                        prev2 = temp
+                        temp = temp.next
+
+                    prevHead = self.head
+                    next_ofprevHead = prevHead.next
+                    prev2.next = prevHead
+                    prevHead.next = temp.next
+                    temp.next = next_ofprevHead
+                    self.head = temp
         
 if __name__ == '__main__':
     # create a linked list l.
@@ -185,5 +237,11 @@ if __name__ == '__main__':
     l.printList()
     l.reverse()
     print("After reverse...")
+    l.printList()
+
+    print("Before swapping...")
+    l.printList()
+    print("After swapping...")
+    l.swap(0, 4)
     l.printList()
     
