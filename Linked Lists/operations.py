@@ -167,26 +167,50 @@ class LinkedList:
                     temp = temp.next
 
                 second_elem = temp # this is the second node.
+
+                # store the successor of the second node for a moment.
                 next_of_sec_elem = second_elem.next
 
-                prev1.next = second_elem
-                second_elem.next = first_elem.next
-                prev2.next = first_elem
-                first_elem.next = next_of_sec_elem
+                prev1.next = second_elem # link the prev1 with the second node. But the second node still points to its successor.
+                second_elem.next = first_elem.next # link the second node's pointer to the successor of first node. I this way, second node is now in correct place.
+                prev2.next = first_elem # link the prev2 with first node. But the first node still points to its successor.
+                first_elem.next = next_of_sec_elem # link the first node's pointer to the previous successor of second node which we deliberately stored. Now, even the first node is in place.
 
             else:
                 if index1 == 0:
+                    # in this case, we only need to find the second node, because node is the head itself.
                     temp = self.head
                     counter = 0
                     prev2 = None
+
+                    # find the second node.
                     while counter != index2 and temp.next != None:
                         counter += 1
                         prev2 = temp
                         temp = temp.next
 
+                    # temp is now the second node.
+
+                    prevHead = self.head # store the current head for a while.
+                    next_ofprevHead = prevHead.next # store the successor of current head, that is the first element.
+                    prev2.next = prevHead # link the current head as successor of "precursor of temp which is the second node".
+                    prevHead.next = temp.next # link the current head's pointer to second node's successor, in this way, the current head has been moved to a new position.
+                    temp.next = next_ofprevHead # modify the second node's pointer to successor of previous Head, because it still references the original successor. That is, now link it to first element of the linked list.
+                    self.head = temp # make the second node as new head.
+
+                elif index2 == 0:
+                    # repeat the above logic if index2 is 0.
+                    temp = self.head
+                    counter = 0
+                    prev1 = None
+                    while counter != index1 and temp.next != None:
+                        counter += 1
+                        prev1 = temp
+                        temp = temp.next
+
                     prevHead = self.head
                     next_ofprevHead = prevHead.next
-                    prev2.next = prevHead
+                    prev1.next = prevHead
                     prevHead.next = temp.next
                     temp.next = next_ofprevHead
                     self.head = temp
@@ -242,6 +266,6 @@ if __name__ == '__main__':
     print("Before swapping...")
     l.printList()
     print("After swapping...")
-    l.swap(0, 4)
+    l.swap(2, 0)
     l.printList()
     
