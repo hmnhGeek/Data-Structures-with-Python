@@ -116,6 +116,51 @@ class circular():
             else:
                 print("Not found")
 
+    def length(self):
+        # store the current head
+        temp = self.head
+        length = 0
+
+        while temp.next != self.head:
+            length += 1
+            temp = temp.next
+
+        length += 1 # for the last node.
+        return length
+
+    def value_at(self, index=0):
+        temp = self.head # store the head somewhere.
+
+        if index <= self.length() - 1:
+            upcounter = 0
+            while upcounter != index: # increase upcounter till you get to the correct node.
+                upcounter += 1
+                temp = temp.next
+
+            return temp.data # return the data of the required node.
+        return None
+
+    def ascending(self, inherent_display=True):
+        # this index will keep the ith minima
+        i = 0
+
+        while i != self.length()-1:
+            # take the current ith position as minimum.
+            m = self.value_at(i)
+            m_index = i
+            for j in range(i, self.length()):
+                if self.value_at(j) < m: # loop each time to find the minimum starting from ith index and place that ith minimum at ith index.
+                    m = self.value_at(j) # update the minimum
+                    m_index = j
+
+            # update i by increasing by 1.
+            self.delete(m_index, False) # False so that it doesn't print the output.
+            self.insert(m, i, False)
+            i+=1
+
+        if inherent_display:
+            self.display()
+
 if __name__ == '__main__':
     print("Welcome to circular linked lists ...")
     n1 = Node(1)
@@ -132,7 +177,14 @@ if __name__ == '__main__':
     clist.insert(0)
     clist.insert(4, 4)
     clist.insert(5, 2)
+    clist.insert(-1, 3)
+    clist.insert(0)
+    clist.insert(-9)
+    clist.insert(100, 5)
     clist.delete()
     clist.delete()
     clist.delete(2)
     clist.find(2)
+    print("Value at {} = {}".format(0, clist.value_at(0)))
+    print("Sorted...")
+    clist.ascending()
