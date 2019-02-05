@@ -161,6 +161,51 @@ class circular():
         if inherent_display:
             self.display()
 
+    def previous_node(self, node_index=0):
+        if node_index == 0:
+            # traverse till the end.
+            temp = self.head
+
+            while temp.next != self.head:
+                temp = temp.next
+
+            return temp
+
+        else:
+            # traverse till that node.
+            temp = self.head
+            upcounter = 0
+            while upcounter != node_index:
+                upcounter += 1
+                prev = temp
+                temp = temp.next
+
+            return prev
+
+    def reverse(self, inherent_display=True):
+        # take note of head.
+        temp = self.head
+        arr = [] # this array will be used to hold the self objects.
+
+        while temp.next != self.head: # store each node in the array
+            arr.append(temp)
+            temp = temp.next
+
+        # reverse the array.
+        arr = arr[-1:-len(arr)-1:-1]
+
+        # traverse till SECOND LAST node.
+        for i in range(len(arr)-1):
+            arr[i].next = arr[i+1]
+
+        # for the last node, assign next to the first element of array arr (last element of the linked list).
+        arr[i+1].next = arr[0]
+        # assign the new head as the last element of the linked list.
+        self.head = arr[0]
+
+        if inherent_display:
+            self.display()
+
 if __name__ == '__main__':
     print("Welcome to circular linked lists ...")
     n1 = Node(1)
@@ -188,3 +233,6 @@ if __name__ == '__main__':
     print("Value at {} = {}".format(0, clist.value_at(0)))
     print("Sorted...")
     clist.ascending()
+    pnode = clist.previous_node(2)
+    print(pnode.data)
+    clist.reverse()
