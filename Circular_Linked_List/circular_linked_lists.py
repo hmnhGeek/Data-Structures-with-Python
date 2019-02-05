@@ -96,6 +96,26 @@ class circular():
             print('=============')
             self.display()
 
+    def find(self, value):
+        # store the head.
+        temp = self.head
+        curr_head = self.head
+        index = 0
+
+        # traverse and find
+        while temp.next != curr_head:
+            if temp.data == value:
+                print("Found at {}".format(index))
+                break
+            else:
+                temp = temp.next
+                index += 1
+        else:
+            if temp.data == value:
+                print("Found at {}".format(index))
+            else:
+                print("Not found")
+
 if __name__ == '__main__':
     print("Welcome to circular linked lists ...")
     n1 = Node(1)
@@ -115,3 +135,4 @@ if __name__ == '__main__':
     clist.delete()
     clist.delete()
     clist.delete(2)
+    clist.find(2)
