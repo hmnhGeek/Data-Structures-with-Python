@@ -92,6 +92,32 @@ class DLL(object):
 
             del temp
 
+    def reverse(self):
+        # take note of the head.
+        temp = self.head
+
+        while temp.next != None:
+            temp = temp.next
+
+        # modify head with temp (the last node).
+        self.head = temp
+
+        #          <---   <---   <---   
+        # X <--- 1 ---> 2 ---> 3 ---> 4 ---> X
+        #
+        
+        while temp.prev != None: # traverse until you reach 1.
+            # while traversing, do this.
+
+            nodenext = temp.next # store the next part of current node. Because later, the next will become the previous.
+            temp.next = temp.prev # change next to previous. Now both next and previous point to same node.
+            temp.prev = nodenext # therefore, change previous to original next which we stored above.
+            temp = temp.next # although we need to go to previous node, but now the previous node is next node. Hence, go to the next node.
+
+        if temp.prev == None: # last node is a special case because while will not entertain this.
+            temp.prev = temp.next # change its previous to next.
+            temp.next = None # make the next as None.
+
 if __name__ == '__main__':
     n1 = Node(1)
     n2 = Node(2)
