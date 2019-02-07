@@ -1,4 +1,7 @@
 
+import sys
+sys.path.append('LinkedLists')
+
 # import linked lists. we will use them to implement stacks.
 from LinkedLists import linked_lists
 
