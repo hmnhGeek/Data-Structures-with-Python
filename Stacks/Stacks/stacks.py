@@ -30,5 +30,10 @@ class Stack(object):
             self.stack.delete(self.stack.length()-1)
             return retval
 
+    def top(self):
+        if self.isempty():
+            return None
+        return self.stack.access(self.stack.length()-1)
+
     def display(self):
         self.stack.printList()
