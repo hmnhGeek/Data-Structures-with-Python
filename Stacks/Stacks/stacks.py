@@ -40,3 +40,9 @@ class Stack(object):
 
     def display(self):
         self.stack.printList()
+
+    def ismember(self, item):
+        if self.stack.search(item) != "Not found":
+            return True
+        else:
+            return False
