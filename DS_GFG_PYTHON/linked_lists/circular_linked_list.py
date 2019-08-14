@@ -4,7 +4,7 @@ class Node:
         self.prev = None
         self.next = None
 
-class CircularLinkedList():
+class DoublyLinkedList():
     def __init__(self):
         self.head = None
 
@@ -266,7 +266,7 @@ class Utility():
             newhead.prev = current
             current.next = newhead
 
-            newList = CircularLinkedList()
+            newList = DoublyLinkedList()
             newList.head = newhead
 
             old_previous.next = circ_linked_list.head
@@ -276,7 +276,7 @@ class Utility():
 
 def driver():
     import random
-    l = CircularLinkedList()
+    l = DoublyLinkedList()
     for i in range(5):
         l.append(random.randint(0, 100))
 
