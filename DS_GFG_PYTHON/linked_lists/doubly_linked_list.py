@@ -239,7 +239,59 @@ class DoublyLinkedList():
             print(current.data, end=" <--->")
             current = current.prev
         print(current.data)
-    
+
+    def get_index(self, node):
+        ''' Returns the index of the node datatype in the linked list. '''
+        count = 0
+        current = self.head
+
+        while current != node and current.next != self.head:
+            count += 1
+            current = current.next
+
+        if count < self.length():
+            return count
+        else:
+            return -1
+
+    def delete_value(self, item):
+        ''' Deletes the first occurance of the item in the linked list. '''
+        current = self.head
+        count = 0
+
+        while count != self.length():
+            if current.data == item:
+                self.delete(count)
+                break
+            count += 1
+            current = current.next
+
+    def ismember(self, item):
+        ''' Checks whether an item is in the list. '''
+        current = self.head
+        count = 0
+
+        while count != self.length():
+            if current.data == item:
+                return True
+            count += 1
+            current = current.next
+        return False
+
+    def count(self, item):
+        ''' Returns the count of the item in the linked list. '''
+        current = self.head
+        count = 0
+        val = 0
+
+        while count != self.length():
+            if current.data == item:
+                val += 1
+            count += 1
+            current = current.next
+        return val
+
+        
 class Utility():
     def __init__(self):
         pass
@@ -274,18 +326,35 @@ class Utility():
 
             return circ_linked_list, newList
 
+    def remove_duplicates(self, linked_list):
+        reference = DoublyLinkedList()
+
+        current = linked_list.head
+
+        while current.next != linked_list.head:
+
+            if not reference.ismember(current.data):
+                reference.append(current.data)
+
+                while linked_list.count(current.data) != 1:
+                    linked_list.delete_value(current.data)
+                current = current.next
+            else:
+                current = current.next
+        return linked_list, reference
+            
+
 def driver():
     import random
     l = DoublyLinkedList()
-    for i in range(5):
-        l.append(random.randint(0, 100))
+    for i in range(50):
+        l.append(random.randint(0, 10))
 
     l.display()
-    l.insert(5, -10)
+    l, r = Utility().remove_duplicates(l)
     l.display()
-    l.delete(5)
+    l.bubble_sort()
     l.display()
-    l.print_reverse()
     
 driver()
     
